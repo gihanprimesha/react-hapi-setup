@@ -1,7 +1,7 @@
 'use strict';
 
-import { sample } from './sample.reducer';
+import { application } from './application.reducer';
 
 export default {
-	sample,
+    application,
 };
