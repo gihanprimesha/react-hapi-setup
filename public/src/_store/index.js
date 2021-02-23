@@ -4,8 +4,12 @@ import reducers from '../_reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createLogger } from 'redux-logger';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { createEpicMiddleware } from 'redux-observable';
+import { rootEpic } from '../_epics/';
 
 const history = createBrowserHistory();
+
+const epicMiddleware = createEpicMiddleware();
 
 const configureStore = () => {
     let configureStore = {};
@@ -21,11 +25,17 @@ const configureStore = () => {
             combineReducer,
             compose(
                 composeWithDevTools(
-                    applyMiddleware(loggerMiddleware, routerMiddleware(history))
+                    applyMiddleware(
+                        loggerMiddleware,
+                        routerMiddleware(history),
+                        epicMiddleware
+                    )
                 )
             )
         );
     }
+    console.log(rootEpic);
+    epicMiddleware.run(rootEpic);
 
     return configureStore;
 };

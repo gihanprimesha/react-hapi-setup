@@ -1,3 +1,6 @@
+'use strict';
 import { combineEpics } from 'redux-observable';
 
-export default combineEpics();
+import { sampleEpic } from './sample.epic';
+
+export const rootEpic = combineEpics(sampleEpic);
