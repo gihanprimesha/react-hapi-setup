@@ -8,13 +8,10 @@ export function sample(state = { name: 'initial' }, action) {
             console.log('SAMPLE_COMPLETE');
             state = {
                 ...state,
-                name: action.payload.name,
+                name: action.payload,
             };
 
-        case sampleConstants.SAMPLE_REQUEST:
-            console.log('SAMPLE_REQUEST');
-
-            break;
+        
     }
 
     return state;
