@@ -1,22 +1,22 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "node": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12
-    },
-    "plugins": [
-        "react"
-    ],
+    "extends": ["airbnb", "prettier", "plugin:react/recommended"],
+    "plugins": ["react", "prettier"],
     "rules": {
+        "no-unused-vars": "warn",
+        "prettier/prettier": "error",
+        "no-console": "warn",
+        "func-names": "off",
+        "no-alert": "error",
+        "no-process-exit": "off",
+        "object-shorthand": "off",
+        "class-methods-use-this": "off",
+        "react/prefer-stateless-function": "off",
+        "strict": "off",
+        "import/prefer-default-export": "off",
+        "import/no-useless-path-segments": "off",
+        "react/forbid-prop-types": "off",
+        "no-undef": "off",
+        "react/jsx-filename-extension": "off",
+        "no-param-reassign": "off"
     }
 }

@@ -5,5 +5,5 @@ import { sample } from './sample.reducer';
 
 export default {
     application,
-    sample
+    sample,
 };

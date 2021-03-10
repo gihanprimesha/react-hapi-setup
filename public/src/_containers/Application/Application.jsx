@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import NavigatiobBar from '../../_components/Common/NavigationBar';
 
 class Application extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
-        this.props.sampleActionRequest('Dispathing sample');
+        const { sampleActionRequest } = this.props;
+        sampleActionRequest('Dispathing sample');
     }
 
     render() {
+        const { application, sample } = this.props;
+
         return (
             <>
                 <NavigatiobBar />
-                <div>{this.props.application.author}</div>
-                <div>{this.props.application.description}</div>
-                <div>Update with Epic dispatching {this.props.sample.name}</div>
+                <div>{application.author}</div>
+                <div>{application.description}</div>
+                <div>Update with Epic dispatching {sample.name}</div>
             </>
         );
     }
 }
+
+Application.propTypes = {
+    application: PropTypes.object.isRequired,
+    sample: PropTypes.object.isRequired,
+    sampleActionRequest: PropTypes.func.isRequired,
+};
 
 export default Application;

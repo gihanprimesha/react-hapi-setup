@@ -58,7 +58,7 @@ export default function NavigationBar() {
                             data-test="logoIMG"
                             className="img"
                             src={Logo}
-                            alt="Logo image"
+                            alt="logo_image"
                         />
                     </div>
                 </div>
