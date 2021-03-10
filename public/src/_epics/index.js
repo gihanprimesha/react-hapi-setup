@@ -1,4 +1,5 @@
 'use strict';
+
 import { combineEpics } from 'redux-observable';
 
 import { sampleEpic } from './sample.epic';

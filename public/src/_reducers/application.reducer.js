@@ -12,6 +12,11 @@ export function application(
             };
 
             break;
+
+        default:
+            state = {
+                ...state,
+            };
     }
     return state;
 }
