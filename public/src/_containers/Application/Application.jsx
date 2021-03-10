@@ -14,9 +14,13 @@ class Application extends Component {
         return (
             <>
                 <NavigatiobBar />
-                <div>{application.author}</div>
-                <div>{application.description}</div>
-                <div>Update with Epic dispatching {sample.name}</div>
+                <div className="ui-x"></div>
+
+                <div className="main">
+                    <div>{application.author}</div>
+                    <div>{application.description}</div>
+                    <div>Update with Epic dispatching {sample.name}</div>
+                </div>
             </>
         );
     }

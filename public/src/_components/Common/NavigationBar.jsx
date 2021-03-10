@@ -50,8 +50,8 @@ export default function NavigationBar() {
     };
 
     return (
-        <div>
-            <header data-test="headerComponent">
+        <>
+            <header className="navbar" data-test="headerComponent">
                 <div className="wrap">
                     <div className="logo">
                         <img
@@ -63,6 +63,6 @@ export default function NavigationBar() {
                     </div>
                 </div>
             </header>
-        </div>
+        </>
     );
 }
