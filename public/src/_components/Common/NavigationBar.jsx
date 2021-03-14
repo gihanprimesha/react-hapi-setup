@@ -60,6 +60,9 @@ export default function NavigationBar() {
                             src={Logo}
                             alt="logo_image"
                         />
+                        <h1>Gihan Primesha</h1>
+                        <p>I'm a Fullstack Developer based in Sri Lanka, specializing in exceptional websites, applications, and everything in between.</p>
+                        <p>10+ years of experience</p>
                     </div>
                 </div>
             </header>

@@ -3,4 +3,27 @@
   flex: 1;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+
+  &-logos {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+
+    img {
+      height: 40px;
+    }
+  }
+
+  h1 {
+    font-size: 60px;
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 0;
+    color: #545454;
+  }
 }
