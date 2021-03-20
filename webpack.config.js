@@ -1,7 +1,9 @@
 'use strict';
-const webpack = require('webpack'),
-    path = require('path');
+
+const webpack = require('webpack');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const BUILD_DIR = path.resolve(__dirname, 'public/dist/');
 const APP_DIR = path.resolve(__dirname, 'public/');
 
@@ -13,7 +15,7 @@ module.exports = {
 
     output: {
         path: BUILD_DIR,
-        filename: 'bundle.js',
+        filename: 'bundle1222.js',
         publicPath: '/',
     },
     resolve: {
