@@ -17,6 +17,8 @@
         "react/forbid-prop-types": "off",
         "no-undef": "off",
         "react/jsx-filename-extension": "off",
-        "no-param-reassign": "off"
+        "no-param-reassign": "off",
+        "no-restricted-syntax": "off",
+        "no-lonely-if": "off"
     }
 }
