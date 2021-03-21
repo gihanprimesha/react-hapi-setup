@@ -19,6 +19,8 @@
         "react/jsx-filename-extension": "off",
         "no-param-reassign": "off",
         "no-restricted-syntax": "off",
-        "no-lonely-if": "off"
+        "no-lonely-if": "off",
+        "arrow-body-style": "off",
+        "guard-for-in": "off"
     }
 }

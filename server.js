@@ -1,5 +1,6 @@
 'use strict';
 
+const Mongoose = require('mongoose');
 const Hapi = require('@hapi/hapi');
 const plugins = require('./app/src/application/plugins');
 const routes = require('./app/src/application/application.routes');
@@ -11,6 +12,10 @@ const init = async () => {
     });
 
     await server.register(plugins);
+    Mongoose.connect(
+        'mongodb+srv://cs-tech-ventures:lRdT4XEm1sX1CQ0U@cs-tech-ventures-assign.95hih.mongodb.net/contact_list?retryWrites=true&w=majority'
+    );
+
     await server.route(routes());
 
     await server.start();

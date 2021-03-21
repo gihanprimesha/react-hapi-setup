@@ -1,14 +1,21 @@
 'use strict';
 
 const boom = require('@hapi/boom');
+const Mongoose = require('mongoose');
 const mappers = require('../../application/constant/common.constant');
+const Contact = require('./contact');
 
 const METHOD_ADD = 'ADD';
 const METHOD_DELETE = 'DELETE';
 
 const mapper = {
     [mappers.POST_MAP]: {
+        id: 'id',
         email: 'email',
+        firstName: 'firstName',
+        lastName: 'lastName',
+        phone: 'phone',
+        location: 'location',
     },
 };
 
@@ -25,48 +32,42 @@ const getDataBaseStructuredData = (map, contactData) => {
     return data;
 };
 
-const writeContactData = (method, dbMappedContactData) => {
-    if (method === METHOD_ADD) {
-        const project = db.contacts.build(dbMappedContactData);
+const getObjectStructuredContactData = (map, contactData) => {
+    const data = {};
+    const newMap = mapper[map];
 
-        return project
+    for (const key in newMap) {
+        data[newMap[key]] = contactData[key];
+    }
+
+    return data;
+};
+
+const writeContactData = async (method, dbMappedContactData) => {
+    if (method === METHOD_ADD) {
+        const contact = new Contact(dbMappedContactData);
+
+        return contact
             .save()
             .then((result) => {
-                const objStructedContactData = getObjectStructuredContactData(
-                    mapObj.DATABASE_MAP,
-                    result.dataValues
-                );
-                return objStructedContactData;
+                return getObjectStructuredContactData(mappers.POST_MAP, result);
             })
-            .catch(db.sequelize.ValidationError, (err) => {
-                const error = new Error(err.errors[0].message);
 
-                throw boom.boomify(error, { statusCode: 422 });
-            })
             .catch((err) => {
-                throw err;
+                const error = new Error(err);
+                throw boom.boomify(error, { statusCode: 422 });
             });
     }
 
     if (method === METHOD_DELETE) {
-        const contactId = dbMappedContactData.contact_id;
-
-        return db.contacts
-            .destroy({
-                where: { contact_id: contactId },
-            })
+        return Contact.deleteOne({ _id: dbMappedContactData.id })
             .then((result) => {
-                if (result !== 1) {
-                    const error = new Error(
-                        services.errorMessages.contact.notFound
-                    );
-                    throw boom.boomify(error, { statusCode: 404 });
-                }
-
-                return {};
+                return getObjectStructuredContactData(mappers.POST_MAP, result);
             })
+
             .catch((err) => {
-                throw err;
+                const error = new Error(err);
+                throw boom.boomify(error, { statusCode: 422 });
             });
     }
 };
@@ -86,7 +87,20 @@ const addContact = async (data) => {
     }
 };
 
-const deleteContact = (data) => {};
+const deleteContact = async (data) => {
+    try {
+        const contact = { id: data.params.id };
+
+        const dbMappedContactData = getDataBaseStructuredData(
+            mappers.POST_MAP,
+            contact
+        );
+
+        return await writeContactData(METHOD_DELETE, dbMappedContactData);
+    } catch (error) {
+        return error;
+    }
+};
 
 module.exports = {
     addContact,

@@ -1,5 +1,6 @@
 'use strict';
 
+const joi = require('joi');
 const contactHandlers = require('./contact.handlers');
 
 const routes = [
@@ -11,8 +12,8 @@ const routes = [
 
     {
         method: 'GET',
-        path: '/api/v1/contact/delete',
-        handler: contactHandlers.addContact,
+        path: '/api/v1/contact/delete/{id}',
+        handler: contactHandlers.deleteContact,
     },
 ];
 
