@@ -13,7 +13,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getContactList: (params) => {
-            dispatch(contactListRequest());
+            dispatch(contactListRequest(params));
         },
         deleteContact: (id) => {
             dispatch(contactDeleteRequest(id));

@@ -7,6 +7,7 @@ const Contact = require('./contact');
 
 const METHOD_ADD = 'ADD';
 const METHOD_DELETE = 'DELETE';
+const METHOD_LIST = 'LIST';
 
 const mapper = {
     [mappers.POST_MAP]: {
@@ -43,7 +44,7 @@ const getObjectStructuredContactData = (map, contactData) => {
     return data;
 };
 
-const writeContactData = async (method, dbMappedContactData) => {
+const writeReadContactData = async (method, dbMappedContactData) => {
     if (method === METHOD_ADD) {
         const contact = new Contact(dbMappedContactData);
 
@@ -70,6 +71,43 @@ const writeContactData = async (method, dbMappedContactData) => {
                 throw boom.boomify(error, { statusCode: 422 });
             });
     }
+
+    if (method === METHOD_LIST) {
+        const regex = new RegExp(dbMappedContactData, 'i');
+        return Contact.find({
+            $and: [
+                {
+                    $or: [
+                        { firstName: regex },
+                        { lastname: regex },
+                        { email: regex },
+                        { phone: regex },
+                        { location: regex },
+                    ],
+                },
+            ],
+        })
+            .exec()
+            .then((result) => {
+                const data = [];
+
+                result.forEach((contact) => {
+                    data.push(
+                        getObjectStructuredContactData(
+                            mappers.POST_MAP,
+                            contact
+                        )
+                    );
+                });
+
+                return data;
+            })
+
+            .catch((err) => {
+                const error = new Error(err);
+                throw boom.boomify(error, { statusCode: 422 });
+            });
+    }
 };
 
 const addContact = async (data) => {
@@ -81,7 +119,7 @@ const addContact = async (data) => {
             contact
         );
 
-        return await writeContactData(METHOD_ADD, dbMappedContactData);
+        return await writeReadContactData(METHOD_ADD, dbMappedContactData);
     } catch (error) {
         return error;
     }
@@ -96,7 +134,17 @@ const deleteContact = async (data) => {
             contact
         );
 
-        return await writeContactData(METHOD_DELETE, dbMappedContactData);
+        return await writeReadContactData(METHOD_DELETE, dbMappedContactData);
+    } catch (error) {
+        return error;
+    }
+};
+
+const listContact = async (data) => {
+    try {
+        const { search } = data.payload;
+
+        return await writeReadContactData(METHOD_LIST, search);
     } catch (error) {
         return error;
     }
@@ -105,4 +153,5 @@ const deleteContact = async (data) => {
 module.exports = {
     addContact,
     deleteContact,
+    listContact,
 };

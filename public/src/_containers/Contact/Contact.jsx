@@ -1,116 +1,85 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { DataGrid } from '@material-ui/data-grid';
+
+const rows = [
+    {
+        id: 1,
+        firstName: 'defunkt',
+        lastName: 38,
+        phone: 'defunkt',
+        email: 38,
+        location: 38,
+    },
+    {
+        id: 2,
+        firstName: 'defunkt',
+        lastName: 38,
+        phone: 'defunkt',
+        email: 38,
+        location: 38,
+    },
+];
 
 class Contact extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            tableData: {
-                data: [],
-                total: 0,
-            },
-        };
-
-        this.paginationPageSize = systemConfigs.defaultRowPerPage;
-
-        this.pagination = {
-            paginationPage: 1,
-            paginationPageSize: systemConfigs.defaultRowPerPage,
-            search: '',
-        };
-
-        this.tableGridOptions = {
-            showFilterToggleButton: true,
-            showFilterForm: false,
-            enableRowSelection: true,
-            hideSearchInput: false,
-        };
-
-        this.filters = {};
-
-        this.deleteContact = this.deleteContact.bind(this);
-        this.viewContact = this.viewContact.bind(this);
-        this.getData = this.getData.bind(this);
-        this.setPaginationPageSize = this.setPaginationPageSize.bind(this);
-        this.submitFormData = this.submitFormData.bind(this);
-        this.clearFilters = this.clearFilters.bind(this);
-    }
-
-    deleteContact(contactIds) {
-        this.props.deleteContact(contactIds);
-    }
-
-    viewContact(contactId) {
-        this.props.history.push(
-            this.props.moduleDetails['routesDetails']['view']['route'] +
-                contactId
-        );
+        this.getContacts = this.getContacts.bind(this);
     }
 
     componentDidMount() {
-        if (this.props.hasPermissions) {
-            this.getContacts();
-        }
+        this.getContacts('');
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.contact !== prevProps.contact) {
-            this.setState({
-                tableData: this.props.contact.listDetails,
-            });
-        }
-
-        if (this.props.hasPermissions !== prevProps.hasPermissions) {
-            if (this.props.hasPermissions) {
-                this.getContacts();
-            }
-        }
-    }
-
-    getData(pageNumber, searchQuery) {
-        this.pagination.paginationPage = pageNumber;
-        this.pagination.search = searchQuery;
-        this.getContacts();
-    }
-
-    setPaginationPageSize(pageSize) {
-        this.paginationPageSize = pageSize;
-        this.pagination.paginationPageSize = pageSize;
-        this.getContacts();
-    }
-
-    getContacts() {
-        let params = getListParamsPost(
-            this.pagination.paginationPage,
-            this.pagination.paginationPageSize,
-            this.pagination.search,
-            this.filters
-        );
-        this.props.getContactList(params);
-    }
-
-    clearFilters() {
-        this.filters.cusDeviceOsTypeId = null;
-        this.filters.versionCode = null;
-        this.filters.versionNo = null;
-
-        this.pagination.paginationPage = 1;
-        this.pagination.paginationPageSize = this.paginationPageSize;
-
-        this.getContacts();
-    }
-
-    submitFormData(formData) {
-        this.filters.cusDeviceOsTypeId = formData.cusDeviceOsTypeId;
-        this.filters.versionCode = formData.versionCode;
-        this.filters.versionNo = formData.versionNo;
-
-        this.pagination.paginationPage = 1;
-        this.getContacts();
+    getContacts(data) {
+        const { getContactList } = this.props;
+        getContactList(data);
     }
 
     render() {
-        return <div>Contact page</div>;
+        const { contact } = this.props;
+        return (
+            <div style={{ height: 500, width: '100%' }}>
+                <DataGrid
+                    loading={false}
+                    disableColumnMenu
+                    hideFooter
+                    columns={[
+                        { field: 'id', hide: true },
+                        {
+                            field: 'firstName',
+                            headerName: 'First Name',
+                            description: 'First name of the person',
+                            width: 200,
+                        },
+                        {
+                            field: 'lastName',
+                            headerName: 'Last Name',
+                            description: 'Last name of the person',
+                            width: 200,
+                        },
+                        {
+                            field: 'phone',
+                            headerName: 'Phone Number',
+                            width: 300,
+                        },
+                        { field: 'email', headerName: 'Email', width: 300 },
+                        {
+                            field: 'location',
+                            headerName: 'Location',
+                            width: 200,
+                        },
+                    ]}
+                    rows={contact.list}
+                />
+            </div>
+        );
     }
 }
+
+Contact.propTypes = {
+    getContactList: PropTypes.func.isRequired,
+    contact: PropTypes.object.isRequired,
+};
 
 export default Contact;

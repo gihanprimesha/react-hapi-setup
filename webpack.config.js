@@ -57,7 +57,10 @@ module.exports = {
     ],
     devServer: {
         contentBase: BUILD_DIR,
-        compress: true,
+        historyApiFallback: true,
         port: 8000,
+        proxy: {
+            '/api': 'http://localhost:3000',
+        },
     },
 };

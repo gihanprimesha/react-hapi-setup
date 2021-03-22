@@ -15,6 +15,12 @@ const routes = [
         path: '/api/v1/contact/delete/{id}',
         handler: contactHandlers.deleteContact,
     },
+
+    {
+        method: 'POST',
+        path: '/api/v1/contact/list',
+        handler: contactHandlers.listContact,
+    },
 ];
 
 module.exports = routes;

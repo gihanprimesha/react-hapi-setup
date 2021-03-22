@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import NavigatiobBar from '../../_components/Common/NavigationBar';
+import { ContactLink } from '../Contact/ContactLink';
 
 class Application extends Component {
     componentDidMount() {
@@ -13,10 +13,7 @@ class Application extends Component {
 
         return (
             <>
-                <NavigatiobBar />
-                <div>{application.author}</div>
-                <div>{application.description}</div>
-                <div>Update with Epic dispatching {sample.name}</div>
+                <ContactLink />
             </>
         );
     }

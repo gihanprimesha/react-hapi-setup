@@ -38,10 +38,12 @@ export const contactDeleteEpic = (action$) =>
 export const contactListEpic = (action$) =>
     action$.pipe(
         ofType(contactConstants.CONTACT_LIST_REQUEST),
-        mergeMap((action) =>
-            ajax.getJSON(`https://api.github.com/users/`).pipe(
-                map((response) => contactListComplete(response.login)),
-                catchError((error) => of(ajaxError(error)))
-            )
-        )
+        mergeMap((action) => {
+            return ajax
+                .post(`/api/v1/contact/list`, { search: action.payload })
+                .pipe(
+                    map((data) => contactListComplete(data.response)),
+                    catchError((error) => of(ajaxError(error)))
+                );
+        })
     );
