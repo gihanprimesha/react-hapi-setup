@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ContactLink } from '../Contact/ContactLink';
+import NavigatiobBar from '../../_components/Common/NavigationBar';
 
 class Application extends Component {
     componentDidMount() {
@@ -13,6 +14,7 @@ class Application extends Component {
 
         return (
             <>
+                <NavigatiobBar />
                 <ContactLink />
             </>
         );

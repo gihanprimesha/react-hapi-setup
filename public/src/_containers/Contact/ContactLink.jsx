@@ -15,8 +15,8 @@ const mapDispatchToProps = (dispatch) => {
         getContactList: (params) => {
             dispatch(contactListRequest(params));
         },
-        deleteContact: (id) => {
-            dispatch(contactDeleteRequest(id));
+        deleteContact: (row) => {
+            dispatch(contactDeleteRequest(row));
         },
     };
 };

@@ -20,6 +20,13 @@ export function contact(state = { list: [], contact: {} }, action) {
 
             break;
 
+        case contactConstants.CONTACT_DELETE_COMPLETE:
+            state = {
+                ...state,
+            };
+
+            break;
+
         default:
             state = {
                 ...state,

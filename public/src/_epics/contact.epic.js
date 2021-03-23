@@ -2,12 +2,20 @@
 
 import { ofType } from 'redux-observable';
 import { ajax } from 'rxjs/ajax';
-import { delay, map, mapTo, mergeMap, catchError } from 'rxjs/operators';
+import {
+    delay,
+    map,
+    mapTo,
+    mergeMap,
+    concatMap,
+    catchError,
+} from 'rxjs/operators';
 import { of } from 'rxjs';
 import {
     contactAddComplete,
     contactListComplete,
     contactDeleteComplete,
+    contactListRequest,
     ajaxError,
 } from '../_actions/';
 
@@ -28,8 +36,14 @@ export const contactDeleteEpic = (action$) =>
     action$.pipe(
         ofType(contactConstants.CONTACT_DELETE_REQUEST),
         mergeMap((action) =>
-            ajax.getJSON(`https://api.github.com/users/`).pipe(
-                map((response) => contactDeleteComplete(response)),
+            ajax.get(`/api/v1/contact/delete/${action.payload.id}`).pipe(
+                concatMap((data) =>
+                    of(
+                        contactDeleteComplete(data.response),
+                        contactListRequest('')
+                    )
+                ),
+
                 catchError((error) => of(ajaxError(error)))
             )
         )
