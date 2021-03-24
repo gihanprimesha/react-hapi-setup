@@ -7,7 +7,6 @@ const addContact = (request) => contactServices.addContact(request);
 const deleteContact = (request) => contactServices.deleteContact(request);
 
 const listContact = (search, h) => {
-    console.log(h);
     return contactServices.listContact(search);
 };
 

@@ -8,7 +8,6 @@ import {
 } from '../_actions/';
 
 const loadingSpinnerMiddleware = (store) => (next) => (action) => {
-    console.log(action);
     const isRequest = action.type.includes('REQUEST');
     const isCompleted = action.type.includes('COMPLETE');
 

@@ -40,7 +40,7 @@ const configureStore = () => {
             )
         );
     }
-    console.log(rootEpic);
+    
     epicMiddleware.run(rootEpic);
 
     return configureStore;
