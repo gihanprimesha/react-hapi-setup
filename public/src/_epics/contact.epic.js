@@ -25,8 +25,13 @@ export const contactAddEpic = (action$) =>
     action$.pipe(
         ofType(contactConstants.CONTACT_ADD_REQUEST),
         mergeMap((action) =>
-            ajax.getJSON(`https://api.github.com/users/`).pipe(
-                map((response) => contactAddComplete(response)),
+            ajax.post(`/api/v1/contact/add`, action.payload).pipe(
+                concatMap((data) =>
+                    of(
+                        contactAddComplete(data.response),
+                        contactListRequest('')
+                    )
+                ),
                 catchError((error) => of(ajaxError(error)))
             )
         )

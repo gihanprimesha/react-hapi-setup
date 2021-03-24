@@ -6,6 +6,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import PropTypes from 'prop-types';
 import Routes from './src/_routes/Routes';
 import ErrorBoundry from './src/_components/ErrorBoundry';
+import ServerMessage from './src/_components/Common/ServerMessage';
 
 class App extends Component {
     render() {
@@ -15,6 +16,7 @@ class App extends Component {
             <Provider store={store}>
                 <ConnectedRouter history={history}>
                     <ErrorBoundry>
+                        <ServerMessage />
                         <Routes />
                     </ErrorBoundry>
                 </ConnectedRouter>

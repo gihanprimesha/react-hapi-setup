@@ -1,1 +1,15 @@
-export const commonConstants = { AJAX_ERROR: 'AJAX_ERROR' };
+export const commonConstants = {
+    ADD_PENDING_ACTIONS: 'ADD_PENDING_ACTIONS',
+    REMOVE_PENDING_ACTIONS: 'REMOVE_PENDING_ACTIONS',
+
+    SHOW_SERVER_MESSAGE: 'SHOW_SERVER_MESSAGE',
+    HIDE_SERVER_MESSAGE: 'HIDE_SERVER_MESSAGE',
+
+    AJAX_ERROR: 'AJAX_ERROR',
+};
+
+export const loadingSelectArray = [
+    'CONTACT_ADD',
+    'CONTACT_DELETE',
+    'CONTACT_LIST',
+];

@@ -8,6 +8,7 @@ export function contact(state = { list: [], contact: {} }, action) {
             state = {
                 ...state,
                 contact: action.payload,
+                loading: false,
             };
 
             break;
@@ -16,6 +17,7 @@ export function contact(state = { list: [], contact: {} }, action) {
             state = {
                 ...state,
                 list: action.payload,
+                loading: false,
             };
 
             break;
@@ -26,6 +28,16 @@ export function contact(state = { list: [], contact: {} }, action) {
             };
 
             break;
+
+        // case contactConstants.CONTACT_DELETE_REQUEST ||
+        //     contactConstants.CONTACT_ADD_REQUEST ||
+        //     contactConstants.CONTACT_LIST_REQUEST:
+        //     state = {
+        //         ...state,
+        //         loading: true,
+        //     };
+
+        // break;
 
         default:
             state = {

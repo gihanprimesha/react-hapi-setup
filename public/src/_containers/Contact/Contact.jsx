@@ -41,14 +41,16 @@ class Contact extends React.Component {
     }
 
     render() {
-        const { contact } = this.props;
+        const { contact, loader } = this.props;
         const { confirmOpen } = this.state;
         return (
             <>
                 <div style={{ height: 500, width: '100%' }}>
                     <DataGrid
                         onCellClick={this.onCellClick}
-                        loading={false}
+                        loading={loader.pendingRequests.includes(
+                            'CONTACT_LIST'
+                        )}
                         disableColumnMenu
                         hideFooter
                         columns={[
@@ -98,14 +100,14 @@ class Contact extends React.Component {
                             }}
                             color="primary"
                         >
-                            Disagree
+                            Cancel
                         </Button>
                         <Button
                             onClick={this.deleteContact}
                             color="primary"
                             autoFocus
                         >
-                            Agree
+                            Ok
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -117,6 +119,7 @@ class Contact extends React.Component {
 Contact.propTypes = {
     getContactList: PropTypes.func.isRequired,
     contact: PropTypes.object.isRequired,
+    loader: PropTypes.object.isRequired,
     deleteContact: PropTypes.func.isRequired,
 };
 

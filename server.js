@@ -4,6 +4,7 @@ const Mongoose = require('mongoose');
 const Hapi = require('@hapi/hapi');
 const plugins = require('./app/src/application/plugins');
 const routes = require('./app/src/application/application.routes');
+const { logger } = require('./app/src/helpers/logger.helper');
 
 const init = async () => {
     const server = Hapi.server({
@@ -19,11 +20,20 @@ const init = async () => {
     await server.route(routes());
 
     await server.start();
-    console.log('Server running on %s', server.info.uri);
+
+    logger.log('info', `Server running at: ${server.info.uri}`);
+
+    await server.ext('onPreResponse', (request, h) => {
+        logger.log(
+            'info',
+            `Response data : ${JSON.stringify(h.request.response.source)}`
+        );
+        return h.request.response.source;
+    });
 };
 
 process.on('unhandledRejection', (err) => {
-    console.log(err);
+    logger.log('error', err);
     process.exit(1);
 });
 

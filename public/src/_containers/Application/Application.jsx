@@ -6,7 +6,6 @@ import NavigatiobBar from '../../_components/Common/NavigationBar';
 class Application extends Component {
     componentDidMount() {
         const { sampleActionRequest } = this.props;
-        sampleActionRequest('Dispathing sample');
     }
 
     render() {

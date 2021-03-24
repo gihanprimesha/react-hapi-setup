@@ -7,6 +7,7 @@ import { contactListRequest, contactDeleteRequest } from '../../_actions/';
 const mapStateToProps = (state, props) => {
     return {
         contact: state.contact,
+        loader: state.loader,
     };
 };
 

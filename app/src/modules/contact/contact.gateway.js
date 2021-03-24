@@ -1,9 +1,9 @@
 'use strict';
 
 const boom = require('@hapi/boom');
-const Mongoose = require('mongoose');
 const mappers = require('../../application/constant/common.constant');
 const Contact = require('./contact');
+const { logger } = require('../../helpers/logger.helper');
 
 const METHOD_ADD = 'ADD';
 const METHOD_DELETE = 'DELETE';
@@ -45,6 +45,12 @@ const getObjectStructuredContactData = (map, contactData) => {
 };
 
 const writeReadContactData = async (method, dbMappedContactData) => {
+    logger.log(
+        'info',
+        `Entered method - writeReadContactData : ${JSON.stringify(
+            dbMappedContactData
+        )}`
+    );
     if (method === METHOD_ADD) {
         const contact = new Contact(dbMappedContactData);
 
@@ -112,6 +118,10 @@ const writeReadContactData = async (method, dbMappedContactData) => {
 
 const addContact = async (data) => {
     try {
+        logger.log(
+            'info',
+            `Entered method - addContact : ${JSON.stringify(data.payload)}`
+        );
         const contact = data.payload;
 
         const dbMappedContactData = getDataBaseStructuredData(
@@ -121,12 +131,17 @@ const addContact = async (data) => {
 
         return await writeReadContactData(METHOD_ADD, dbMappedContactData);
     } catch (error) {
+        logger.log('error', `Error in - addContact : ${JSON.stringify(error)}`);
         return error;
     }
 };
 
 const deleteContact = async (data) => {
     try {
+        logger.log(
+            'info',
+            `Entered method - deleteContact : ${JSON.stringify(data.params)}`
+        );
         const contact = { id: data.params.id };
 
         const dbMappedContactData = getDataBaseStructuredData(
@@ -136,16 +151,25 @@ const deleteContact = async (data) => {
 
         return await writeReadContactData(METHOD_DELETE, dbMappedContactData);
     } catch (error) {
+        logger.log('error', `Error in - addContact : ${JSON.stringify(error)}`);
         return error;
     }
 };
 
 const listContact = async (data) => {
     try {
+        logger.log(
+            'info',
+            `Entered method - listContact : ${JSON.stringify(data.payload)}`
+        );
         const { search } = data.payload;
 
         return await writeReadContactData(METHOD_LIST, search);
     } catch (error) {
+        logger.log(
+            'error',
+            `Error in - listContact : ${JSON.stringify(error)}`
+        );
         return error;
     }
 };

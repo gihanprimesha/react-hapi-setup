@@ -1,3 +1,5 @@
 export * from './sample.action';
-export * from './common.actions';
 export * from './contact.actions';
+export * from './serverMessage.actions';
+export * from './loadingSpinner.actions';
+export * from './error.actions';
