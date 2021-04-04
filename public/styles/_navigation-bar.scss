@@ -1,0 +1,31 @@
+.navbar {
+  width: 35%;
+  max-width: 450px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  img {
+    border-radius: 50px;
+    width: 200px;
+    height: 200px;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 30px;
+    background: -webkit-linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p {
+    font-size: 16px;
+    max-width: 240px;
+    background: -webkit-linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
