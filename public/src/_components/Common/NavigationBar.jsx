@@ -5,7 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Logo from '../../../styles/images/logo.png';
+import UserImage from '../../../styles/images/user-image.png';
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -57,12 +57,16 @@ export default function NavigationBar() {
                         <img
                             data-test="logoIMG"
                             className="img"
-                            src={Logo}
+                            src={UserImage}
                             alt="logo_image"
                         />
                         <h1>Gihan Primesha</h1>
-                        <p>I'm a Fullstack Developer based in Sri Lanka, specializing in exceptional websites, applications, and everything in between.</p>
-                        <p>10+ years of experience</p>
+                        <p>
+                            I'm a Fullstack Developer based in Sri Lanka,
+                            specializing in exceptional websites, applications,
+                            and everything in between.
+                        </p>
+                        <p>9+ years of experience</p>
                     </div>
                 </div>
             </header>
